@@ -1,99 +1,135 @@
+# <p align="center">🛡️ PortShieldGUI</p>
 
-# 🔒 PortShieldGUI
-
-**PortShieldGUI** is a powerful and user-friendly Python application built with **PyQt6**. It provides an intuitive graphical interface to manage Linux firewall rules (`iptables`), control system services (`systemctl`), and perform port scans using **nmap**.
+<p align="center">
+  <img src="https://img.shields.io/badge/Version-1.0.0-blue?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/Framework-PyQt6-41CD52?style=for-the-badge&logo=qt&logoColor=white" alt="PyQt6">
+  <img src="https://img.shields.io/badge/Platform-Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux">
+</p>
 
 ---
 
-## 📸 Interface Overview
+## 📖 Introduction
+
+**PortShieldGUI** is a robust, high-performance security dashboard designed for Linux administrators and security researchers. It provides a sleek, **Midnight-themed** graphical interface to orchestrate complex `iptables` rules, manage `systemd` services, and perform network reconnaissance via `nmap`—all without touching the terminal.
 
 ---
 
 ## ✨ Features
 
-### 🔥 Firewall Management
-✅ Add rules with custom port, protocol, action, and optional IP filter  
-✅ View and export active `iptables` INPUT rules  
-✅ Flush rules with confirmation prompt  
-✅ Block or unblock IP addresses  
-✅ Perform quick `nmap` port scans  
-✅ Auto-refresh rules every 10 seconds (optional)
+### 🔒 Firewall Orchestration
 
-### ⚙️ Service Manager
-✅ Start/Stop services like SSH, Apache, FTP, and RDP  
-✅ Scan ports to verify service availability  
-✅ View real-time status updates
+* **Dynamic Rule Creation:** Add rules by Port, Protocol (TCP/UDP), and Action (ACCEPT/DROP).
+* **Precision Filtering:** Instantly block or allow specific Source IPs.
+* **Live Monitoring:** Optional **10s Auto-Refresh** to watch rules update in real-time.
+* **Persistence:** Export active rules to `.rules` files for backup and disaster recovery.
 
----
+### ⚙️ Service Intelligence
 
-## 🖥️ User Interface
-
-- **Dark Mode:** Sleek black theme (`#1e1e2f`) with white text
-- **Custom Controls:** Green/Red buttons, input validation, and auto-refresh toggle
-- **Tabbed Navigation:** Separate views for firewall and service control
+* **One-Click Control:** Manage lifecycle (Start/Stop) for SSH (port 22), Apache2 (port 80), FTP/Vsftpd (port 21), and RDP/XRDP (port 3389).
+* **Network Verification:** Integrated `nmap` engine to audit open ports and verify firewall efficacy.
+* **System Integrity:** Real-time service status indicators.
 
 ---
 
-## 📁 Project Structure
+## 🎨 Design & UX
 
-```
+* **Theme:** Carbon-Dark high-contrast interface (`#1e1e2f`).
+* **Safety UX:** Color-coded destructive actions (Flush/Stop) with confirmation prompts.
+* **Tabbed Architecture:** Seamless switching between Firewall and Service modules.
+
+---
+
+## 📂 Project Structure
+
+```text
 📦 PortShieldGUI
-├── portshield_gui.py        # Main application file
-├── requirements.txt         # Python dependencies
-├── firewall_backup.rules    # Exported iptables rules
-└── README.md                # Project documentation
+ ┣ 📜 portshield.py           # Core Application Logic
+ ┣ 📜 requirements.txt        # Dependency Manifest
+ ┣ 📜 firewall_backup.rules   # Auto-generated Rule Backups
+ ┗ 📜 README.md               # Project Documentation
 ```
 
 ---
 
-## 📦 Requirements
+## 🛠️ Installation & Setup
 
-| Dependency   | Description                       |
-|--------------|------------------------------------|
-| Python 3.8+  | Core language                     |
-| PyQt6        | GUI framework                     |
-| nmap         | Network scanning utility          |
-| iptables     | Linux firewall utility            |
-| systemctl    | Service management (systemd)      |
-| sudo access  | Required for firewall/service control |
+### 1. Prerequisites
 
-Install dependencies via:
+Ensure you have the following system utilities installed:
+
+* `iptables`
+* `nmap`
+* `systemd`
+
+### 2. Python Environment Setup (Linux)
+
+Create and activate a virtual environment to keep dependencies isolated:
 
 ```bash
+# Install virtualenv if not installed
+sudo apt install python3-venv -y
+
+# Create a virtual environment named 'env'
+python3 -m venv env
+
+# Activate the virtual environment
+source env/bin/activate
+```
+
+Install project dependencies inside the virtual environment:
+
+```bash
+pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
----
+To deactivate the environment when done:
 
-## 🚀 Running the App
+```bash
+deactivate
+```
+
+### 3. Execution
+
+> [!IMPORTANT]
+> Because `iptables` and `systemctl` modify system-level configurations, PortShieldGUI must be run with root privileges.
 
 ```bash
 sudo python3 portshield.py
 ```
 
-> ⚠️ Sudo/root access is required for firewall and service operations.
-
 ---
 
 ## ⚠️ Security Notice
 
-- Incorrect iptables usage may lock you out of your own system
-- Always test your firewall rules in a safe environment
-- Configure `sudoers` for passwordless execution of specific commands if needed
+* Incorrect firewall configuration can lead to system lockout.
+* Always ensure you have an alternative access method before flushing rules.
+* Use in a staging environment before deploying to production.
 
 ---
 
-## 📈 Future Improvements
+## 📌 Ports Used in PortShieldGUI
 
-- IPv6 (`ip6tables`) support
-- Rule profile management (save/load sets)
-- Real-time service monitoring & logs
-- Custom user-defined rule builder
+| Service      | Default Port |
+| ------------ | ------------ |
+| SSH          | 22           |
+| Apache2      | 80           |
+| FTP / Vsftpd | 21           |
+| RDP / XRDP   | 3389         |
+
+> These ports are used in the application for monitoring, firewall rules, and service management.
 
 ---
 
 ## 👨‍💻 Developed By
 
-**JAS PREET**  
-🔗 GitHub: [jaspreet-infosec](https://github.com/jaspreet-infosec)
+**JASPREET GREWAL**
 
+<p align="left"> 
+  <a href="https://github.com/jaspreet-infosec"> <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="Github"> </a>
+  <a href="https://www.linkedin.com/in/jaspreet-infosec/"> <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"> </a>
+</p>
+
+
+<p align="center">Released under the MIT License. Contributions are welcome!</p>
